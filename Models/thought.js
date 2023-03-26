@@ -11,18 +11,18 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      
+      get: timestamp => dateformat(timestamp)
     },
-    thoughts: [
+    username: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Thought',
+        type: string,
+        required: true,
       },
     ],
-    friends: [
+    reactions: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'reactionSchema',
       },
     ],
 },
@@ -34,10 +34,10 @@ const thoughtSchema = new Schema(
   }
 );
 
-userSchema.virtual('friendCount').get(function(){
-  return this.friends.length
+thoughtSchema.virtual('reactionCount').get(function(){
+  return this.reactions.length
 })
 
-const User = model('User', userSchema);
+const Thought = model('Thought', thoughtSchema);
 
-module.exports = User;
+module.exports = Thought;
