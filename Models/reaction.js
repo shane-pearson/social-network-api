@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const reactionSchema = new Schema(
   {
@@ -7,16 +7,16 @@ const reactionSchema = new Schema(
       required: true,
     },
     reactionBody: {
-      type: string,
+      type: String,
       required: true,
       maxLength: 280
     },
     username: {
-        type: string,
+        type: String,
         required: true,
       },
     createdAt: {
-        type: Date.now,
+        type: Date,
         default: Date.now,
         get: timestamp => dateformat(timestamp)
       },
